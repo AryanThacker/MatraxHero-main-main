@@ -66,14 +66,18 @@ function dom() {
 
   window.addEventListener("resize", setCanvasSize);
 
+  
   function files(index) {
     const data = `
-      ./images/SequenceImages/jlsousa tires project 4  Urcola+.3117.${
+      ./images/SequenceImages/jlsousa tires project 4  Urcola+.72.${
         31 + index
-      }.png
+      }-min.png
       `;
     return data.trim();
   }
+
+
+
 
   const frameCount = 121;
   const images = [];
