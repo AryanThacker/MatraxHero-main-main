@@ -292,7 +292,7 @@ body {
   font-size: clamp(2.25rem, 7vw, 3.5rem);
   font-weight: 800;
   color: #000;
-  padding-top: 15vh;
+  padding-top: 10vh;
   z-index: 13;
 }
 
@@ -341,11 +341,15 @@ body {
 }
 
 .down {
-  margin-top: 25vh;
+  margin-top: 10vh;
+}
+
+.up{
+  margin-top: -5vh;
 }
 
 .up_up {
-  margin-top: -15vh;
+  margin-top: -20vh;
 }
 
 .right_content_hor {

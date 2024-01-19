@@ -262,7 +262,7 @@ function horizontalScroll() {
     });
   } else {
     gsap.to(images, {
-      xPercent: -50 * (images.length - 1),
+      xPercent: -30 * (images.length - 1),
       ...animationProps,
     });
   }
