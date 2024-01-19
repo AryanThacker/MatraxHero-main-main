@@ -1,15 +1,15 @@
 const lenis = new Lenis({
   duration: 4,
   smooth: true,
-  easing: (t, friction = 0.1) => {
-    // Apply friction to the easing function
-    const easedValue = Math.min(1, 1.001 - Math.pow(2, -10 * t));
+  // easing: (t, friction = 0.1) => {
+  //   // Apply friction to the easing function
+  //   const easedValue = Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
-    // Apply friction to the eased value
-    const frictionedValue = easedValue - friction * t;
+  //   // Apply friction to the eased value
+  //   // const frictionedValue = easedValue - friction * t;
 
-    return Math.min(1, frictionedValue);
-  }
+  //   return Math.min(1, frictionedValue);
+  // },
 });
 function raf(time) {
   lenis.raf(time);
@@ -17,7 +17,6 @@ function raf(time) {
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
-
 
 document.body.addEventListener("mousemove", function (dets) {
   gsap.to(".cursor", {
@@ -32,26 +31,24 @@ function showNav() {
 document.addEventListener("DOMContentLoaded", function () {
   var splide = new Splide(".splide", {
     direction: "ttb",
-    height: "60vh",
+    height: "50vh",
     wheel: true,
-    perPage: 5,
+    perPage: 6,
     // type: "loop",
     perMove: 1,
     pagination: false,
-    gap: 25,
+    gap: 15,
     padding: "1rem",
   });
   splide.mount();
 });
-
 
 gsap.from(".heroCanvas", {
   x: 1300,
   rotate: 360,
   // repeat:-1,
   duration: 4,
-})
-
+});
 
 function dom() {
   const canvas = document.querySelector(".heroSection>canvas");
@@ -71,8 +68,9 @@ function dom() {
 
   function files(index) {
     const data = `
-      ./images/SequenceImages/jlsousa tires project 4  Urcola+.3117.${31 + index
-      }.webp
+      ./images/SequenceImages/jlsousa tires project 4  Urcola+.3117.${
+        31 + index
+      }.png
       `;
     return data.trim();
   }
@@ -94,8 +92,8 @@ function dom() {
       scrub: 1,
       pin: true,
       trigger: "#main",
-      start:"top top",
-      end:"8% top",
+      start: "top top",
+      end: "8% top",
       // markers:true,
     },
     onUpdate: render,
@@ -145,13 +143,6 @@ function dom() {
   // });
 }
 
-
-
-
-
-
-
-
 dom();
 
 function videoSection() {
@@ -181,30 +172,33 @@ function videoSection() {
   // });
 
   // -------------
-  const splitTypes = document.querySelectorAll('.reveal-type');
+  const splitTypes = document.querySelectorAll(".reveal-type");
 
-splitTypes.forEach((char, i) => {
-    const text = new SplitType(char, { types: 'chars' });
+  splitTypes.forEach((char, i) => {
+    const text = new SplitType(char, { types: "chars" });
 
     // Set initial opacity to 0
     gsap.set(text.chars, { opacity: 1 });
 
-    gsap.from(text.chars, {
+    gsap.from(
+      text.chars,
+      {
         scrollTrigger: {
           trigger: "#main",
           start: "11.5% top",
           end: "20% top",
           scrub: true,
-          pin:true,
+          pin: true,
           // markers: true,
         },
         duration: 0.5, // Adjust the duration as needed
         stagger: 0.1,
         opacity: 0.2, // Set the target opacity to 1
-    }, "a");
-});
+      },
+      "a"
+    );
+  });
   // ------------
-
 
   if (window.innerWidth < 600) {
     // tl1.to(".videoOverlay", { opacity: 0.85 }, "+.4");
@@ -213,8 +207,6 @@ splitTypes.forEach((char, i) => {
     // tl1.to(".videoOverlay", { opacity: 0.85 }, "+.4");
     // tl1.to(".videoOverlayText", { bottom: "30%", duration: 8 }, "+.8");
   }
-
-
 }
 videoSection();
 
@@ -226,12 +218,27 @@ function horizontalScroll() {
       trigger: "#main",
       pin: true,
       start: "23% top",
-      end: "40% top",
+      end: "50% top",
       scrub: 1,
       // markers: true,
     },
-    defaults: { duration: 5 },
+    defaults: { duration: 1 },
   };
+  // gsap.to(images, {
+  //   xPercent: -50 * (images.length - 1),
+  //   ...animationProps,
+  //   onComplete: function () {
+  //     gsap.delayedCall(10, () => {
+  //       // Your code here that you want to execute after a 1-second delay at the end of the animation
+  //       console.log("Animation completed. Adding a 1-second delay at the end.");
+  //     });
+  //   },
+  // });
+
+  // gsap.to(images, {
+  //   xPercent: -50 * (images.length - 1),
+  //   ...animationProps,
+  // });
 
   // Check the screen width
   if (window.innerWidth < 600) {
@@ -239,9 +246,14 @@ function horizontalScroll() {
       xPercent: -160 * (images.length - 1),
       ...animationProps,
     });
-  } else if (window.innerWidth >= 600 && window.innerWidth < 1200) {
+  } else if (window.innerWidth >= 1000 && window.innerWidth < 1200) {
     gsap.to(images, {
-      xPercent: -150 * (images.length - 1),
+      xPercent: -45 * (images.length - 1),
+      ...animationProps,
+    });
+  } else if (window.innerWidth >= 700 && window.innerWidth < 900) {
+    gsap.to(images, {
+      xPercent: -60 * (images.length - 1),
       ...animationProps,
     });
   } else {
@@ -268,17 +280,15 @@ function curvedScroll() {
     yPercentValue = -4;
   }
 
-    const animation = () => {
-      gsap.set(".carrousel-wrappper", {
-        xPercent: -50,
-        yPercent: yPercentValue,
-        width: `${slides.length * 350}px`,
-        height: `${slides.length * 350}px`
-      });
-      circleSetup(".carrousel-wrappper", ".single-item", -50);
-    };
-   
-  
+  const animation = () => {
+    gsap.set(".carrousel-wrappper", {
+      xPercent: -50,
+      yPercent: yPercentValue,
+      width: `${slides.length * 350}px`,
+      height: `${slides.length * 350}px`,
+    });
+    circleSetup(".carrousel-wrappper", ".single-item", -50);
+  };
 
   gsap.to(".curvedScroll", {
     scrollTrigger: {
@@ -289,8 +299,8 @@ function curvedScroll() {
       // markers: true,
       onUpdate: (self) => {
         gsap.set(".carrousel-wrappper", { rotation: self.progress * 200 });
-      }
-    }
+      },
+    },
   });
 
   /// set slides around the circle
@@ -314,7 +324,7 @@ function curvedScroll() {
         xPercent: percentageValue,
         yPercent: percentageValue,
         x,
-        y
+        y,
       });
     });
   };
@@ -324,7 +334,7 @@ function curvedScroll() {
     gsap.set("main", { autoAlpha: 1 });
   });
 }
-curvedScroll()
+curvedScroll();
 
 function bullStory() {
   ScrollTrigger.create({
@@ -333,48 +343,43 @@ function bullStory() {
     start: "46% top",
     end: "53% top",
     pin: true,
-  })
+  });
   if (window.innerWidth < 600) {
     gsap.to(".bullStoryOverlay", {
       scrollTrigger: {
-        trigger: '#main',
+        trigger: "#main",
         // markers: true,
         start: "46% top",
         end: "52% top",
         scrub: 2,
       },
-      top: "60%"
-    })
-  }
-  else{
+      top: "60%",
+    });
+  } else {
     gsap.to(".bullStoryOverlay", {
       scrollTrigger: {
-        trigger: '#main',
+        trigger: "#main",
         // markers: true,
         start: "46% top",
         end: "52% top",
         scrub: 2,
       },
-      top: "50%"
-    })
+      top: "50%",
+    });
   }
-  
-  
 }
-bullStory()
+bullStory();
 
 function logoShrink() {
-  let section = document.getElementById('section'),
+  let section = document.getElementById("section"),
     dot = document.querySelector(".dot");
-    var newImageUrl = "./images/motaroLogo.svg";
-    var originalImageUrl = "./images/bull.svg";
+  var newImageUrl = "./images/motaroLogo.svg";
+  var originalImageUrl = "./images/bull.svg";
 
-    var bullimgElement = document.querySelector(".bullimg");
-
-
+  var bullimgElement = document.querySelector(".bullimg");
 
   gsap.set(dot, {
-    width: "142vmax", // ensures it fills every part of the screen. 
+    width: "142vmax", // ensures it fills every part of the screen.
     height: "142vmax",
     xPercent: -50, // center the dot in the section area
     yPercent: -50,
@@ -394,89 +399,88 @@ function logoShrink() {
       pinSpacing: true,
       invalidateOnRefresh: true,
     },
-    defaults: { ease: "none" }
+    defaults: { ease: "none" },
   });
 
-  tl1
-    .fromTo(dot, {
+  tl1.fromTo(
+    dot,
+    {
       scale: 0,
-    }, {
+      // zIndex: "10",
+    },
+    {
       scale: 1,
       // ease: "power3.in",
-    });
-
-    if (window.innerWidth < 600) {
-      tl1.to(".bullimg", { duration: 0.8, width: "55%", y: -300 }, "+.6");
-      tl1.to(".bullimg", {
-        duration: 0.8,
-        onStart: function () {
-          document.querySelector(".bullimg").src = newImageUrl;
-        },
-        onReverseComplete: function () {
-          document.querySelector(".bullimg").src = originalImageUrl;
-        },
-      });
-      tl1.to(".nameLogo", { duration: 0.8, y: -650 }, "+.6");
-      tl1.to(".logoTextSection", { duration: 0.8, y: -600 }, "+.9");
-    } else {
-      tl1.to(".bullimg", { duration: 0.8, width: "15%", y: -200 }, "+.6");
-      tl1.to(".bullimg", {
-        duration: 0.8,
-        onStart: function () {
-          document.querySelector(".bullimg").src = newImageUrl;
-        },
-        onReverseComplete: function () {
-          document.querySelector(".bullimg").src = originalImageUrl;
-        },
-      });
-      tl1.to(".nameLogo", { duration: 0.8, y: -530 }, "+.6");
-      tl1.to(".logoTextSection", { duration: 0.8, y: -450 }, "+.9");
     }
+  );
 
+  if (window.innerWidth < 600) {
+    tl1.to(".bullimg", { duration: 0.8, width: "55%", y: -300 }, "+.6");
+    tl1.to(".bullimg", {
+      duration: 0.8,
+      onStart: function () {
+        document.querySelector(".bullimg").src = newImageUrl;
+      },
+      onReverseComplete: function () {
+        document.querySelector(".bullimg").src = originalImageUrl;
+      },
+    });
+    tl1.to(".nameLogo", { duration: 0.8, y: -650 }, "+.6");
+    tl1.to(".logoTextSection", { duration: 0.8, y: -600 }, "+.9");
+  }else if(window.innerWidth > 600 && window.innerWidth<1500){
+    tl1.to(".bullimg", { zIndex: 10 });
+    tl1.to(".bullimg", { duration: 0.8, width: "15%", y: -200 }, "+.6");
+    tl1.to(".bullimg", {
+      duration: 0.8,
+      onStart: function () {
+        document.querySelector(".bullimg").src = newImageUrl;
+      },
+      onReverseComplete: function () {
+        document.querySelector(".bullimg").src = originalImageUrl;
+      },
+    });
+    tl1.to(".nameLogo", { duration: 0.8, y: -530, width: "0" }, "+.6");
+    tl1.to(".logoTextSection", { duration: 0.8, y: -500 }, "+.9");
+  }  else {
+    tl1.to(".bullimg", { zIndex: 10 });
+    tl1.to(".bullimg", { duration: 0.8, width: "15%", y: -200 }, "+.6");
+    tl1.to(".bullimg", {
+      duration: 0.8,
+      onStart: function () {
+        document.querySelector(".bullimg").src = newImageUrl;
+      },
+      onReverseComplete: function () {
+        document.querySelector(".bullimg").src = originalImageUrl;
+      },
+    });
+    tl1.to(".nameLogo", { duration: 0.8, y: -530, width: "0" }, "+.6");
+    tl1.to(".logoTextSection", { duration: 0.8, y: -630 }, "+.9");
+  }
 
-    // --------------------------------
-    
-    // --------------------------------
-    
+  // --------------------------------
+
+  // --------------------------------
 }
-logoShrink()
+logoShrink();
 
 function ecosystem() {
-  const cardContainer = document.querySelector(".card-container");
-  const cardContainerWidth = cardContainer.offsetWidth;
-
   const card1 = document.getElementById("card1");
-  const card1Width = card1.offsetWidth;
-
   const card2 = document.getElementById("card2");
-  const card2Width = card2.offsetWidth;
-
-  const EXPAND_WIDTH = cardContainerWidth * 0.1;
-
   card1.addEventListener("mouseenter", () => {
-    card1.style.width = `${card1Width + EXPAND_WIDTH}px`;
-    card2.style.width = `${card2Width - EXPAND_WIDTH}px`;
-
-    card2.classList.add("bgimg-card");
+    card2.classList.add("nonhover-card-eco");
   });
 
   card1.addEventListener("mouseleave", () => {
-    card1.style.width = `${card1Width}px`;
-    card2.style.width = `${card2Width}px`;
-    card1.classList.add("expandCard");
-    card2.classList.remove("bgimg-card");
+    card2.classList.remove("nonhover-card-eco");
   });
 
   card2.addEventListener("mouseenter", () => {
-    card2.style.width = `${card1Width + EXPAND_WIDTH}px`;
-    card1.style.width = `${card2Width - EXPAND_WIDTH}px`;
-    card1.classList.add("bgimg-card");
+    card1.classList.add("nonhover-card-eco");
   });
 
   card2.addEventListener("mouseleave", () => {
-    card2.style.width = `${card1Width}px`;
-    card1.style.width = `${card2Width}px`;
-    card1.classList.remove("bgimg-card");
+    card1.classList.remove("nonhover-card-eco");
   });
 }
-ecosystem()
+
+ecosystem();
