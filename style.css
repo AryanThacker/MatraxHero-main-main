@@ -1175,7 +1175,7 @@ footer {
 
 .card-eco:hover .card-title {
   justify-content: space-between;
-  /* transition: 1;  Have to find a way to make arrow work smoothly */
+  /* transition: 1;  Have to find a way to make arrow work smoothly! */
 }
 
 .card-eco:hover .card-text {
